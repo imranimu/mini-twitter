@@ -174,14 +174,7 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: 'bold',      
         fontSize: RFValue(14),
-    },
-    buttonContainerSec: {
-        backgroundColor: '#fff',
-        borderWidth: 50,
-        shadowColor: '#ffff',
-        borderColor: '#1691CE',
-        paddingVertical: hp(1.4),
-    },
+    }, 
     titleSec: {
         color: '#1691CE',
     },

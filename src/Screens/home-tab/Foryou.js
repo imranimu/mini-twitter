@@ -1,29 +1,24 @@
-import { ActivityIndicator, Alert, StyleSheet, Text, View, RefreshControl, ScrollView } from 'react-native'
-
 import React, {useEffect, useState} from 'react'
-
-import { getData } from '../../services/ApiService';
+import { ActivityIndicator, Alert, StyleSheet, Text, View, RefreshControl, ScrollView } from 'react-native'
 import { useTheme } from 'react-native-paper';
+import { getData } from '../../services/ApiService';
+import { globalStyles } from '../../components/GlobalStyle';
+import { RFValue } from '../../lib';
 import BaseLayout from '../../components/BaseLayout';
 import IconMap from '../../components/IconMap';
-import { globalStyles } from '../../components/GlobalStyle';
-import { RFValue, wp } from '../../lib';
 import Tweet from '../../components/Tweet';
+import Noresult from '../../components/Noresult';
 
 const Foryou = () => {
     const [refreshing, setRefreshing] = useState(false);
     const {colors} = useTheme();
-    const [AllTweet, setAllTweet] = useState([])
-    const [TotalTweet, setTotalTweet] = useState(0);
+    const [AllTweet, setAllTweet] = useState([]) 
     const [Loader, setLoader] = useState(false);
 
     const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
-        console.log('Refresh ... call function'); 
-        Timelinenfo();
-        setTimeout(() => {
-            setRefreshing(false);
-        }, 1000);
+        setRefreshing(true); 
+        Timelinenfo();       
+        setRefreshing(false);        
     }, []);
 
     useEffect(() => {     
@@ -37,15 +32,14 @@ const Foryou = () => {
         if(status){
             console.log(response);
             setLoader(false);
-            setAllTweet(response.timeline);
-            setTotalTweet(response.count);
+            setAllTweet(response.timeline); 
         }else{
             Alert(msg);
             setLoader(false);
         }
     } 
 
-    const TweetList = AllTweet.length > 0 ? (
+    const TweetList = AllTweet?.length > 0 ? (
         AllTweet.map((item, index) => {
             return ( 
                 <Tweet 
@@ -58,11 +52,7 @@ const Foryou = () => {
             );
         })
     ) : (
-        <View style={globalStyles.rowflex}>
-            <IconMap type="AntDesign" name="warning" size={20} color={colors.iconColor} />
-            <Text style={[globalStyles.ml10, {color: colors.text, fontSize: RFValue(18)}]}> No Tweet to display</Text>
-        </View>
-        
+        <Noresult msg="No Tweet to display" />
     );
     
 
