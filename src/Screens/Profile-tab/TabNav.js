@@ -2,28 +2,26 @@ import { Text } from 'react-native'
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import React, {useState} from 'react'
 import {useTheme} from 'react-native-paper';
-
-import MyTweet from './MyTweet';
-import Foryou from './Foryou';
 import { RFValue, wp } from '../../lib';
- 
+import Followers from './Followers';
+import Following from './Following';
 import LiveTweet from '../../components/LiveTweet';
 
 const FirstRoute = () => {    
     return (
-        <Foryou /> 
+        <Followers />
     );
 };
 
 const SecondRoute = () => {    
     return (        
-        <MyTweet />        
+        <Following />       
     );
 }; 
 
-const Timeline = () => {
+const MyProfile = () => {
     const [index, setIndex] = useState(0);
-    const {colors} = useTheme();     
+    const {colors} = useTheme();
 
     const renderScene = SceneMap({
         first: FirstRoute,
@@ -31,8 +29,8 @@ const Timeline = () => {
     });
 
     const [routes] = React.useState([
-        {key: 'first', title: 'Timeline'},
-        {key: 'second', title: 'My Tweet'}, 
+        {key: 'first', title: 'Followers'},
+        {key: 'second', title: 'Following'}, 
     ]); 
 
     const renderTabBar = props => (
@@ -58,10 +56,11 @@ const Timeline = () => {
             renderScene={renderScene}
             onIndexChange={setIndex}
             lazy 
-        />
-        <LiveTweet />        
+        />    
+
+        <LiveTweet />  
         </>
     )
 }
 
-export default Timeline
+export default MyProfile 

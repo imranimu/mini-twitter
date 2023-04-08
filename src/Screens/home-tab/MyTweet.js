@@ -52,9 +52,7 @@ const MyTweet = () => {
     ) : (
         <Noresult msg="No Tweet to display" />
     );
-
-    console.log(' My Tweet');
-
+ 
     return (
         <BaseLayout containerStyle={globalStyles.pt15}>
             {Loader ? 
