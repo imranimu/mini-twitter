@@ -5,7 +5,7 @@ import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import Config from 'react-native-config';
 import allReducers from './reducers/allReducer';
-import { ThemeContext } from './Contexts/ThemeContext';
+import { ThemeContext } from './contexts/ThemeContext';
 import Route from './route';
 
 const store = createStore(allReducers);
@@ -24,7 +24,8 @@ const Index = () => {
             ...DefaultTheme.colors,
             primary: '#1976D3',
             background: "#20232a",
-            text: "#000",
+            sbgcolor: '#282C34',
+            text: "#fff",
             iconColor: '#B5B5B5',   
             Input: '#282c35',
             placeholder: "#777777"         
@@ -38,6 +39,7 @@ const Index = () => {
             ...DefaultTheme.colors,
             primary: '#1976D3',
             background: "#f6fafe",
+            sbgcolor: '#fff',
             text: "#000",
             iconColor: '#636363',
             Input: '#fff',

@@ -127,7 +127,7 @@ export default function AppButton({title, onPress, disabled, stylesButton, color
             style={[
                 styles.buttonContainer,                 
                 {
-                    backgroundColor: colors.primary,                    
+                    backgroundColor: disabled ? "gray" : colors.primary ,                    
                 },
                 stylesButton,
             ]}

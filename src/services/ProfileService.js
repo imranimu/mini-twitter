@@ -1,26 +1,18 @@
 import globalAsyncStorage from './AsyncStorage';
 
 export const GetProfileInfo = async () => {
-    const ProfileDetails = await globalAsyncStorage.getItem('@UserDetails');       
+    const Token = await globalAsyncStorage.getItem('Token');       
 
-    if (ProfileDetails !== null) {
-    
-        let userData = JSON.parse(ProfileDetails);
-
-        console.log('Profile info Get');
-
-        return userData;      
-        
+    if (Token !== null) {
+        return Token;    
     } else {        
         return null;
     }
 }
 
-export const SetProfileInfo = async (userData) => {
+export const SetProfileInfo = async (Token) => { 
     
-    const jsonValue = JSON.stringify(userData);
-    
-    await globalAsyncStorage.setItem('@UserDetails', jsonValue);
+    await globalAsyncStorage.setItem('Token', Token);
 
     console.log('Profile info Set');
         
@@ -28,7 +20,7 @@ export const SetProfileInfo = async (userData) => {
 
 export const ClearProfileInfo = async () => {
 
-    await globalAsyncStorage.removeItem('@UserDetails');
+    await globalAsyncStorage.removeItem('Token');
     
     console.log('Profile info cleared');
     

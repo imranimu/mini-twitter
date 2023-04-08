@@ -1,39 +1,4 @@
-/*import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import BaseLayout from '../components/BaseLayout'
-import GlobalInput from '../components/GlobalInput'
-
-const Login = () => {
-
-    const dispatch = useDispatch();
-    const {colors} = useTheme();
-    const [SecurePass, setSecurePass] = useState(true);
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
-    const [rememberMe, setRememberMe] = useState(false);
-    const [Loader, setLoader] = useState(false);
-
-    return (
-        <BaseLayout>
-            <GlobalInput 
-                Label="Username"
-                placeholder="Username"
-                onChangeText={username => setUsername(username)}
-                value={username}
-            />
-        </BaseLayout>
-        
-    )
-}
-
-export default Login
-
-const styles = StyleSheet.create({})
-
-*/
-
-import React, {useEffect, useState} from 'react';
-//import Api from '../api';
+import React, {useEffect, useState} from 'react'; 
 import {
     ScrollView,
     StyleSheet,
@@ -51,13 +16,15 @@ import {globalStyles} from '../components/GlobalStyle';
 import IconMap from '../components/IconMap';
 import AppButton from '../components/AppButton';
 import globalAsyncStorage from '../services/AsyncStorage';
-import { RFValue, wp, hp } from '../lib';
+import { wp, hp } from '../lib';
+import { postData } from '../services/ApiService'; 
+//import Toast from 'react-native-simple-toast';
 
 const Login = ({navigation}) => {    
     const dispatch = useDispatch();
     const {colors} = useTheme();
     const [SecurePass, setSecurePass] = useState(true);
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [rememberMe, setRememberMe] = useState(false);
     const [Loader, setLoader] = useState(false);
@@ -65,52 +32,62 @@ const Login = ({navigation}) => {
     useEffect(() => {        
         getRememberedLoginInfo();
     }, []);
-
+   
     const getRememberedLoginInfo = async () => { 
         const LoginInfo = await globalAsyncStorage.getItem('@LoginInfo');
 
         if (LoginInfo !== null) { 
             let loginData = JSON.parse(LoginInfo);
-            setUsername(loginData.username);
+            setEmail(loginData.email);
             setPassword(loginData.password);
             setRememberMe(loginData.rememberMe);
         }   
     };
 
-    const Signin = () => {
-        if (username && password) {
-            const data = {
-                user_name: username,
-                password: password,
-            };
-            
-            console.log(data);
-
-            /*setLoader(true);
-            Api.post('/user/login', data).then(response => {
-                if(response.data.success){ 
-                    if (rememberMe) {
-                        remeberPassword();
-                    } else {
-                        removeRemeberPassword();
-                    }
-                    dispatch({type: 'SIGN_IN', payload: response.data.data});
-                }
-                setLoader(false);
-            }).catch(error => {
-                console.log(error);
-                alert(error.response.data.message);
-                setLoader(false);
-            });*/ 
+    const validate = (text) => {        
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;  
+        if (reg.test(text) === false) {
+          return false;
         } else {
-            console.log('All Fields are required');
-            alert('All Fields are required');
+          return true;
         }
+    };
+
+    const Signin = async() => {        
+            
+        if (validate(email)) {
+
+            setLoader(true);
+
+            let data = {
+                email: email,
+                password: password
+            }; 
+
+            const { response, status} =  await postData('/login', data);
+            
+            if(status){
+                console.log(response.token);
+
+                if (rememberMe) {
+                    remeberPassword();
+                } else {
+                    removeRemeberPassword();
+                }
+                dispatch({type: 'SIGN_IN', payload: response.token});                  
+                setLoader(false); 
+            }else{                    
+                setLoader(false);
+                alert('Sorry, we could not find your account.');
+            }  
+        }else{                           
+            alert('Please enter valid email');      
+        }  
     };
 
     const remeberPassword = async () => {
         let loginInfo = {
-            username: username,
+            email: email,
             password: password,
             rememberMe: rememberMe,
         };
@@ -134,15 +111,15 @@ const Login = ({navigation}) => {
             </View>
             <ScrollView>                
                 <GlobalInput
-                Label="Username"
-                placeholder="Username"
-                onChangeText={username => setUsername(username)}
-                value={username}
+                Label="Email"
+                placeholder="Enter your email"
+                onChangeText={email => setEmail(email)}
+                value={email}
                 />
                 <View style={styles.FieldWrap}>
                     <GlobalInput
                         Label="Password"
-                        placeholder="Password"
+                        placeholder="Enter your password"
                         onChangeText={password => setPassword(password)}
                         value={password}
                         secureTextEntry={SecurePass}
@@ -178,17 +155,18 @@ const Login = ({navigation}) => {
                         setRememberMe(!rememberMe);
                         }}
                     />                    
-                </View>
+                </View> 
                         
                 <AppButton                     
+                    disabled={!email || !password }
                     title={'Sign In'}
                     color="#fff"
                     loader={Loader}
-                    onPress={()=> Signin() }               
+                    onPress={()=> Signin() }                              
                     stylesButton={{borderRadius: 100}}      
                 /> 
                 
-                <TouchableOpacity onPress={() => navigation.push('Singup')}>
+                <TouchableOpacity onPress={() => navigation.push('Signup')}>
                     <Text style={[
                             globalStyles.text,
                             {textAlign: 'center', color: colors.primary, marginBottom: 15},

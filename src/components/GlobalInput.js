@@ -12,7 +12,7 @@ const GlobalInput = ({Label, Style, Icon, ...props }) => {
             <Text style={[globalStyles.text, styles.LabelText, {color: colors.text}]}>{Label}</Text>
 
             {Icon}
-            
+
             <TextInput
                 {...props}
                 placeholderTextColor={colors.placeholder}
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         height: 50,
         borderWidth: 0,
         borderRadius: 50,
-        paddingHorizontal: 15,
+        paddingHorizontal: 25,
         marginBottom: 20
     },
 });

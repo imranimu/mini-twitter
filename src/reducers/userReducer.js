@@ -3,23 +3,23 @@ import globalAsyncStorage from '../services/AsyncStorage';
 
 const initialState = {
     isUserLoggedIn: false,
-    userDetails: {},
+    Token: '',
 };
 
 const userReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_LOGGED_IN_USER_INFO':
-            state = { isUserLoggedIn: true, userDetails: action.payload };
+            state = { isUserLoggedIn: true, Token: action.payload };
             return state;
         break; 
 
         case 'SIGN_IN':
             try {
-                const jsonValue = JSON.stringify(action.payload);
-                globalAsyncStorage.setItem('@UserDetails', jsonValue);
+                //const jsonValue = JSON.stringify(action.payload);
+                globalAsyncStorage.setItem('Token', action.payload);
                 state = {
                     isUserLoggedIn: true,
-                    userDetails: action.payload,
+                    Token: action.payload,
                 };
             } catch (error) {
                 console.warn(error.message);
@@ -29,10 +29,10 @@ const userReducer = (state = initialState, action) => {
 
         case 'SIGN_OUT':
             try {
-                globalAsyncStorage.removeItem('@UserDetails');
+                globalAsyncStorage.removeItem('Token');
                 state = {
-                isUserLoggedIn: false,
-                    userDetails: {},
+                    isUserLoggedIn: false,
+                    Token: '',
                 };
             } catch (error) {
                 console.warn(error.message);

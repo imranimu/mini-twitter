@@ -12,6 +12,9 @@ const Stack = createStackNavigator();
 
 export default function Route() {
 	const user = useSelector(state => state.user);
+
+	console.log(user);
+	
 	const options = useOptions();
 
 	return (

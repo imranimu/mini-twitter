@@ -11,7 +11,7 @@ const BaseLayout = ({children, containerStyle, paddingTop}) => {
         <View
             style={[
                 styles.container,
-                {backgroundColor: colors.bgcolor},
+                {backgroundColor: colors.background},
                 containerStyle,
             ]}
         >
