@@ -8,7 +8,7 @@ import IconMap from './IconMap'
 const Tweet = ({name, username, duration, content}) => {
 
     const {colors} = useTheme()
-    
+
     return (
         <View style={[globalStyles.rowflex, globalStyles.mb20, styles.BlockWrap, {alignItems: "flex-start", borderBottomColor: colors.Input}]}>
             <View style={[globalStyles.mr10, {
@@ -21,14 +21,14 @@ const Tweet = ({name, username, duration, content}) => {
             }]}> 
                 <IconMap type={"FontAwesome"} name={"user-o"} size={Platform.OS === 'ios' ? 25 : 28} color={colors.iconColor} /> 
             </View>
-            <View style>
+            <View style={{width: wp(72)}}>
                 <View style={[globalStyles.rowflex, globalStyles.mb10]}>
                     <Text style={[globalStyles.mr10, styles.Name, {color: colors.text}]}>{name}</Text>
                     <Text style={[ styles.Username, {color: colors.iconColor}]}>{username}</Text>
                     <Text style={{color: colors.iconColor}}>. {duration}</Text>
                 </View>
 
-                <Text style={[styles.ContentStyle, {color: colors.text}]}>{content}</Text>
+                <Text style={[styles.ContentStyle, {color: colors.text, paddingRight: 0, textAlign: "justify" }]}>{content}</Text>
             </View>
         </View>
     )

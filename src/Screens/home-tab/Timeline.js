@@ -1,9 +1,9 @@
-import { StyleSheet, Text, Modal, View, TouchableOpacity, TextInput } from 'react-native'
+import { StyleSheet, Text, Modal, Alert, View, TouchableOpacity, TextInput } from 'react-native'
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import React, {useState} from 'react'
 import {useTheme} from 'react-native-paper';
 
-import Following from './Following';
+import MyTweet from './MyTweet';
 import Foryou from './Foryou';
 import { RFValue, wp } from '../../lib';
 import IconMap from '../../components/IconMap';
@@ -19,7 +19,7 @@ const FirstRoute = () => {
 
 const SecondRoute = () => {    
     return (        
-        <Following />        
+        <MyTweet />        
     );
 }; 
 
@@ -36,8 +36,8 @@ const Timeline = () => {
     });
 
     const [routes] = React.useState([
-        {key: 'first', title: 'For You'},
-        {key: 'second', title: 'Following'}, 
+        {key: 'first', title: 'Timeline'},
+        {key: 'second', title: 'My Tweet'}, 
     ]); 
 
     const renderTabBar = props => (
@@ -67,11 +67,10 @@ const Timeline = () => {
 
         if(status){
             console.log(response);
-            setLoader(false);
-            Alert(response.message);
+            setLoader(false);            
             setTweetContent('');
             setModalVisible(false); 
-
+            Alert(response.message);
         }else{
             setLoader(false);
             Alert(msg);

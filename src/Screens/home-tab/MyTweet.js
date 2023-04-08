@@ -1,15 +1,13 @@
-import React, {useEffect, useState} from 'react'
 import { ActivityIndicator, Alert, StyleSheet, Text, View, RefreshControl, ScrollView } from 'react-native'
+import React, {useEffect, useState} from 'react'
 import { useTheme } from 'react-native-paper';
 import { getData } from '../../services/ApiService';
 import { globalStyles } from '../../components/GlobalStyle';
-import { RFValue } from '../../lib';
-import BaseLayout from '../../components/BaseLayout';
-import IconMap from '../../components/IconMap';
+import BaseLayout from '../../components/BaseLayout'
 import Tweet from '../../components/Tweet';
 import Noresult from '../../components/Noresult';
 
-const Timeline = () => {
+const MyTweet = () => {
     const [refreshing, setRefreshing] = useState(false);
     const {colors} = useTheme();
     const [AllTweet, setAllTweet] = useState([]) 
@@ -17,22 +15,22 @@ const Timeline = () => {
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true); 
-        TimelineTweet();       
+        GetMyTweet();       
         setRefreshing(false);        
     }, []);
 
     useEffect(() => {     
-        TimelineTweet(); 
+        GetMyTweet(); 
     },[]);
 
-    const TimelineTweet = async() => {   
+    const GetMyTweet = async() => {   
         setLoader(true);
-        const {response, status, msg } = await getData('/timeline');
+        const {response, status, msg } = await getData('/my-tweets');
 
         if(status){
             console.log(response);
             setLoader(false);
-            setAllTweet(response.timeline); 
+            setAllTweet(response.my_tweets); 
         }else{
             Alert(msg);
             setLoader(false);
@@ -54,9 +52,10 @@ const Timeline = () => {
     ) : (
         <Noresult msg="No Tweet to display" />
     );
-    
 
-    return (        
+    console.log(' My Tweet');
+
+    return (
         <BaseLayout containerStyle={globalStyles.pt15}>
             {Loader ? 
                 <View style={[globalStyles.my25]}>
@@ -70,8 +69,6 @@ const Timeline = () => {
     )
 }
 
-export default Timeline
+export default MyTweet
 
-const styles = StyleSheet.create({
-   
-})
+const styles = StyleSheet.create({})
