@@ -4,9 +4,9 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {useSelector} from 'react-redux';
 import {useOptions} from './components/NavigationOptions';
 
-import Signup from './Screens/Signup'; 
-import TabContainer from './Screens/TabContainer';
-import Login from './Screens/Login';
+import Signup from './screens/Signup'; 
+import TabContainer from './screens/TabContainer';
+import Login from './screens/Login';
 
 const Stack = createStackNavigator();
 

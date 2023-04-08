@@ -3,13 +3,16 @@ import { StyleSheet, View, Text, TextInput} from 'react-native';
 import { useTheme } from 'react-native-paper';
 import {globalStyles} from './GlobalStyle'
  
-const GlobalInput = ({Label, Style, ...props }) => {
-    
+const GlobalInput = ({Label, Style, Icon, ...props }) => {
+
     const {colors} = useTheme();
     
     return (
         <View style={{width: "100%"}}>
             <Text style={[globalStyles.text, styles.LabelText, {color: colors.text}]}>{Label}</Text>
+
+            {Icon}
+            
             <TextInput
                 {...props}
                 placeholderTextColor={colors.placeholder}
