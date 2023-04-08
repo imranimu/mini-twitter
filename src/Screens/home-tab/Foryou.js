@@ -1,4 +1,4 @@
-import { ActivityIndicator, Alert, StyleSheet, Text, View } from 'react-native'
+import { ActivityIndicator, Alert, StyleSheet, Text, View, RefreshControl, ScrollView } from 'react-native'
 
 import React, {useEffect, useState} from 'react'
 
@@ -8,64 +8,80 @@ import BaseLayout from '../../components/BaseLayout';
 import IconMap from '../../components/IconMap';
 import { globalStyles } from '../../components/GlobalStyle';
 import { RFValue, wp } from '../../lib';
+import Tweet from '../../components/Tweet';
 
 const Foryou = () => {
+    const [refreshing, setRefreshing] = useState(false);
     const {colors} = useTheme();
     const [AllTweet, setAllTweet] = useState([])
     const [TotalTweet, setTotalTweet] = useState(0);
     const [Loader, setLoader] = useState(false);
 
+    const onRefresh = React.useCallback(() => {
+        setRefreshing(true);
+        console.log('Refresh ... call function'); 
+        Timelinenfo();
+        setTimeout(() => {
+            setRefreshing(false);
+        }, 1000);
+    }, []);
+
     useEffect(() => {     
-        // Timelinenfo(); 
+        Timelinenfo(); 
     },[]);
 
     const Timelinenfo = async() => {   
+        setLoader(true);
         const {response, status, msg } = await getData('/timeline');
 
         if(status){
             console.log(response);
+            setLoader(false);
             setAllTweet(response.timeline);
             setTotalTweet(response.count);
         }else{
-            Alert(msg)
+            Alert(msg);
+            setLoader(false);
         }
-    }
+    } 
+
+    const TweetList = AllTweet.length > 0 ? (
+        AllTweet.map((item, index) => {
+            return ( 
+                <Tweet 
+                    key={index}
+                    name={item.user.username}
+                    username={`@${item.user.username}`}
+                    duration="32h"
+                    content={item.content}
+                />
+            );
+        })
+    ) : (
+        <View style={globalStyles.rowflex}>
+            <IconMap type="AntDesign" name="warning" size={20} color={colors.iconColor} />
+            <Text style={[globalStyles.ml10, {color: colors.text, fontSize: RFValue(18)}]}> No Tweet to display</Text>
+        </View>
+        
+    );
+    
 
     return (        
-        <BaseLayout>
-            {Loader ? <ActivityIndicator size="large" color={colors.primary} /> : 
-                <View>
-                    <Text style={{color: colors.text}}>Foryou</Text>
-                    <Text style={{color: colors.text}}>{TotalTweet}</Text>
-                </View>
-            }
-
-            <View style={[globalStyles.rowflex, {alignItems: "flex-start"}]}>
-                <View style={[globalStyles.mr10, {
-                    width: wp(15), 
-                    height: wp(15), 
-                    alignItems: "center",
-                    justifyContent: "center",
-                    backgroundColor: colors.Input,
-                    borderRadius: 100
-                }]}>
-                    <IconMap type={"FontAwesome"} name={"user-o"} size={40} color={colors.iconColor} /> 
-                </View>
-                <View>
-                    <View style={[globalStyles.rowflex, globalStyles.mb10]}>
-                        <Text style={[globalStyles.mr10, {color: colors.text, fontSize: RFValue(18), fontWeight: "bold"}]}>Jone Due</Text>
-                        <Text style={{color: colors.iconColor}}>@jone250</Text>
-                        <Text style={{color: colors.iconColor}}>. 32h</Text>
-
-                    </View>
-
-                    <Text style={{color: colors.text}}>Hello World from Jane Doe From Live</Text>
-                </View>
-            </View>
+        <BaseLayout containerStyle={globalStyles.pt15}>
+            {Loader ? 
+                <View style={[globalStyles.my25]}>
+                    <ActivityIndicator size="large" color={colors.primary} />
+                </View> : 
+                <ScrollView refreshControl={<RefreshControl refreshing={refreshing} onRefresh={onRefresh} /> }>                    
+                    {TweetList} 
+                </ScrollView>
+            }            
         </BaseLayout>
     )
 }
 
 export default Foryou
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+   
+})

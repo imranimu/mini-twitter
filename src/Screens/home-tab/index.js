@@ -1,7 +1,6 @@
 import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';  
-import Foryou from './Foryou';
-import HomePage from './home';
+import Timeline from './Timeline';
 
 const HomeStack = createStackNavigator();
 
@@ -11,7 +10,7 @@ export default function HomeTab() {
         <HomeStack.Screen
             name="homepage"
             options={{title: 'Home',  headerShown: false}}
-            component={HomePage}
+            component={Timeline}
         />  
     </HomeStack.Navigator>
   );
