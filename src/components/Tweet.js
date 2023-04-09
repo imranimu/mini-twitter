@@ -25,7 +25,7 @@ const Tweet = ({name, username, duration, content}) => {
                 <View style={[globalStyles.rowflex, globalStyles.mb10]}>
                     <Text style={[globalStyles.mr10, styles.Name, {color: colors.text}]}>{name}</Text>
                     <Text style={[ styles.Username, {color: colors.iconColor}]}>{username}</Text>
-                    <Text style={{color: colors.iconColor}}>. {duration}</Text>
+                    {/* <Text style={{color: colors.iconColor}}>. {duration}</Text> */}
                 </View>
 
                 <Text style={[styles.ContentStyle, {color: colors.text, paddingRight: 0, textAlign: "justify" }]}>{content}</Text>

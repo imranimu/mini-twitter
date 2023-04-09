@@ -5,13 +5,15 @@ import { RFValue } from '../lib'
 import { globalStyles } from './GlobalStyle'
 import { useTheme } from 'react-native-paper'
 
-const Noresult = ({msg}) => {
+const Noresult = ({msg, icon}) => {
     
     const {colors} = useTheme()
 
     return (
         <View style={[globalStyles.rowflex, {alignItems: "center", justifyContent: "center"}]}>
-            <IconMap type="AntDesign" name="twitter" size={20} color={colors.iconColor} />            
+            {!icon &&
+                <IconMap type="AntDesign" name="twitter" size={20} color={colors.iconColor} />            
+            }
             <Text style={[globalStyles.ml10, {color: colors.text, fontSize: RFValue(18)}]}>{msg}</Text>
         </View> 
     )

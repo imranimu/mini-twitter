@@ -9,7 +9,7 @@ const SettingTab = () => {
     const Logout = () => {
         console.log('Log Out');
     }
-    
+
     return (
         <>
         <BaseLayout>
@@ -18,6 +18,8 @@ const SettingTab = () => {
             <TouchableOpacity onPress={()=> Logout()}>
                 <Text>Logout</Text>
             </TouchableOpacity>
+
+            
         </BaseLayout>
 
         <LiveTweet />         

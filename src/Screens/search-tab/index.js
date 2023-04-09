@@ -44,6 +44,8 @@ const SearchTab = () => {
                 setLoader(false);
                 setAllUsers(response.search_results); 
             }
+        }else{
+            setAllUsers([]);
         }  
     }
 
@@ -57,7 +59,7 @@ const SearchTab = () => {
             );
         })
     ) : (
-        <Noresult msg="Nothing to show" />                
+        <Noresult msg="Try searching for people" icon={false} />                
     );
 
     return (

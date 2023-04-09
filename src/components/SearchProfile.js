@@ -4,6 +4,7 @@ import { globalStyles } from './GlobalStyle'
 import { RFValue, wp } from '../lib'
 import { useTheme } from 'react-native-paper'
 import IconMap from './IconMap'
+import AppButton from './AppButton'
 
 const SearchProfile = ({name}) => {
     
@@ -21,9 +22,18 @@ const SearchProfile = ({name}) => {
             }]}> 
                 <IconMap type={"FontAwesome"} name={"user-o"} size={Platform.OS === 'ios' ? 25 : 28} color={colors.iconColor} />                                 
             </View>
-            <View style={[Platform.OS === 'ios' ? globalStyles.mr5 :  globalStyles.mr10, {width: wp(Platform.OS === 'ios' ? 45 : 45)}]}>
+            <View style={[Platform.OS === 'ios' ? globalStyles.mr5 :  globalStyles.mr10, {width: wp(Platform.OS === 'ios' ? 40 : 45)}]}>
                 <Text style={[globalStyles.mr10, globalStyles.mb10, styles.Name, {color: colors.text}]}>{name} </Text>
                 <Text style={[globalStyles.mr10, globalStyles.mb10, styles.Username, {color: colors.text}]}>@{name}</Text>
+            </View>
+            <View>                
+                <AppButton 
+                    title={'Follow'}
+                    color={ "#000"}
+                    loader={false}
+                    onPress={()=> Follow(userid) }              
+                    stylesButton={{backgroundColor: "#fff", width: wp(Platform.OS === 'ios' ? 30 : 25), borderRadius: 100}}                         
+                />
             </View>
         </View>
     )
