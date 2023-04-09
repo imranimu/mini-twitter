@@ -6,9 +6,11 @@ import { useTheme } from 'react-native-paper'
 import UserProfile from '../../components/UserProfile'
 import { getData } from '../../services/ApiService'
 import Noresult from '../../components/Noresult'
+import { useDispatch } from 'react-redux'
 
 const Following = () => {
     const [refreshing, setRefreshing] = useState(false);
+    const dispatch = useDispatch();
     const {colors} = useTheme();
     const [AllFollowing, setAllFollowing] = useState([]) 
     const [Loader, setLoader] = useState(false);
@@ -27,20 +29,18 @@ const Following = () => {
         
         setLoader(true);
 
-        const {response, status, msg } = await getData('/following');
-
-        console.log(response);
-
-        setLoader(false);
-
-        if(status){
-            console.log(response);
+        const {response, status } = await getData('/following');
+        
+        if(response.error || status == false){
+            //alert(response.error);
             setLoader(false);
-            setAllFollowing(response.followings); 
+            dispatch({
+                type: 'SIGN_OUT',
+            });
         }else{
-            alert(msg);
-            setLoader(false);
-        }
+            setLoader(false);            
+            setAllFollowing(response.followings); 
+        }   
     }
 
     const Following = AllFollowing?.length > 0 ? (

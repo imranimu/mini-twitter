@@ -8,12 +8,14 @@ import BaseLayout from '../../components/BaseLayout';
 import IconMap from '../../components/IconMap';
 import Tweet from '../../components/Tweet';
 import Noresult from '../../components/Noresult';
+import { useDispatch } from 'react-redux';
 
 const Timeline = () => {
     const [refreshing, setRefreshing] = useState(false);
     const {colors} = useTheme();
     const [AllTweet, setAllTweet] = useState([]) 
     const [Loader, setLoader] = useState(false);
+    const dispatch = useDispatch();
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true); 
@@ -26,17 +28,23 @@ const Timeline = () => {
     },[]);
 
     const TimelineTweet = async() => {   
+        
         setLoader(true);
-        const {response, status, msg } = await getData('/timeline');
 
-        if(status){
-            console.log(response);
+        const {response, status} = await getData('/timeline');        
+
+        if(response.error || status == false){
+
             setLoader(false);
-            setAllTweet(response.timeline); 
+
+            dispatch({
+                type: 'SIGN_OUT',
+            });
+
         }else{
-            Alert(msg);
-            setLoader(false);
-        }
+            setLoader(false);            
+            setAllTweet(response.timeline); 
+        }           
     } 
 
     const TweetList = AllTweet?.length > 0 ? (

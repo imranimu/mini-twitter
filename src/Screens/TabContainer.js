@@ -8,6 +8,8 @@ import {useTheme} from 'react-native-paper';
 import IconMap from '../components/IconMap'; 
 import HomeTab from './home-tab';
 import ProfileTab from './Profile-tab';
+import SearchTab from './search-tab';
+import SettingTab from './setting-tab';
 
 const Tab = createBottomTabNavigator();
 
@@ -49,9 +51,9 @@ const TabContainer = ({navigation, route}) => {
             }}
         >
             <Tab.Screen name="Home" component={HomeTab} />
-            <Tab.Screen name="Search" component={HomeTab} />
+            <Tab.Screen name="Search" component={SearchTab} />
             <Tab.Screen name="Profile" component={ProfileTab} />
-            <Tab.Screen name="Setting" component={HomeTab} /> 
+            <Tab.Screen name="Setting" component={SettingTab} /> 
         </Tab.Navigator>
     </NavigationContainer>
     )

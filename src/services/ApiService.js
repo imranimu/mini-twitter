@@ -15,10 +15,11 @@ export async function getData(url) {
             status: true, 
             msg: 'Api Call Succss'  
         };   
-
+        
     } catch (error) {
 
         console.log(error.response);
+
         return { 
             response: [], 
             status: false, 

@@ -1,5 +1,6 @@
 import { StyleSheet, RefreshControl, ActivityIndicator, ScrollView, View } from 'react-native'
 import React, {useState, useEffect} from 'react'
+import {useDispatch} from 'react-redux';
 import BaseLayout from '../../components/BaseLayout'
 import { globalStyles } from '../../components/GlobalStyle'
 import { useTheme } from 'react-native-paper'
@@ -9,6 +10,7 @@ import Noresult from '../../components/Noresult'
 
 const Followers = () => {
     const [refreshing, setRefreshing] = useState(false);
+    const dispatch = useDispatch();
     const {colors} = useTheme();
     const [AllFollowers, setAllFollowers] = useState([]) 
     const [Loader, setLoader] = useState(false);
@@ -27,20 +29,17 @@ const Followers = () => {
         
         setLoader(true);
 
-        const {response, status, msg } = await getData('/followers');
+        const {response, status } = await getData('/followers');         
 
-        console.log(response);
-
-        setLoader(false);
-
-        if(status){
-            console.log(response);
+        if(response.error || status == false){          
+            setLoader(false);
+            dispatch({
+                type: 'SIGN_OUT',
+            });
+        }else{            
             setLoader(false);
             setAllFollowers(response.followers); 
-        }else{
-            alert(msg);
-            setLoader(false);
-        }
+        }  
     }
 
     const Followers = AllFollowers?.length > 0 ? (
