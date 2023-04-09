@@ -63,7 +63,7 @@ const LiveTweet = () => {
                             }}
                             style={styles.modalButton}
                         >
-                            <Text style={styles.modalButtonText}>Close</Text>
+                            <Text style={[styles.modalButtonText, {color: colors.text}]}>Close</Text>
                         </TouchableOpacity>                        
                         <AppButton 
                             disabled={!TweetContent}

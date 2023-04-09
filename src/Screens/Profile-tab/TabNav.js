@@ -1,6 +1,6 @@
 import { Text } from 'react-native'
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useTheme} from 'react-native-paper';
 import { RFValue, wp } from '../../lib';
 import Followers from './Followers';
@@ -19,9 +19,17 @@ const SecondRoute = () => {
     );
 }; 
 
-const MyProfile = () => {
-    const [index, setIndex] = useState(0);
+const MyProfile = ({route}) => {
+
+    const {tabindex} = route?.params;    
+
+    const [index, setIndex] = useState(tabindex);
+
     const {colors} = useTheme();
+    
+    useEffect(() => {     
+        setIndex(tabindex);
+    },[tabindex]);
 
     const renderScene = SceneMap({
         first: FirstRoute,

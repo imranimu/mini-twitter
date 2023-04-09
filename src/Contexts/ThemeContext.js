@@ -6,10 +6,10 @@ export const ThemeContext = createContext();
 
 export const ThemeProvider = ({children}) => {
 
-    const [theme, setTheme] = useState('dark'); 
+    const [theme, setTheme] = useState('Dark'); 
 
     const toggleTheme = () => {
-        const newTheme = theme === 'light' ? 'dark' : 'light';
+        const newTheme = theme === 'Light' ? 'Dark' : 'Light';
         setTheme(newTheme);
         globalAsyncStorage.setItem('theme', newTheme);
     }; 

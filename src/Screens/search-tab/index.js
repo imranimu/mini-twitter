@@ -59,7 +59,7 @@ const SearchTab = () => {
             );
         })
     ) : (
-        <Noresult msg="Try searching for people" icon={false} />                
+        <Noresult msg="Try searching for people"/>                
     );
 
     return (
@@ -69,6 +69,7 @@ const SearchTab = () => {
             <View style={globalStyles.mb15}>
                 <TextInput
                     style={[styles.input, {backgroundColor: colors.Input, color: colors.text}]}
+                    placeholderTextColor={colors.placeholder}
                     value={query}
                     onChangeText={setQuery}
                     keyboardType="web-search"
@@ -93,12 +94,7 @@ const SearchTab = () => {
                 <ScrollView>
                     {Users} 
                 </ScrollView>
-            }
-
-            
-            
-             
-
+            } 
         </BaseLayout>
 
         <LiveTweet /> 

@@ -14,6 +14,7 @@ export default function HomeTab() {
                 name="MyProfile"
                 options={{title: 'Home',  headerShown: false}}
                 component={MyProfile}
+                initialParams={{ tabindex: 0 }}
             />  
             {/* <ProfileStack.Screen
                 name="Add Tweet"

@@ -30,7 +30,7 @@ const UserProfile = ({type, username, userid}) => {
                 <Text style={[globalStyles.mr10, globalStyles.mb10, styles.Name, {color: colors.text}]}>{username} </Text>
                 <Text style={[globalStyles.mr10, globalStyles.mb10, styles.Name, {color: colors.text}]}>@{username}</Text>
                 {type === 'Followers' && <View style={[globalStyles.rowflex, globalStyles.mb10, styles.FollowsBtn, {backgroundColor: colors.placeholder,}]}>
-                    <Text style={[globalStyles.p5, {color: colors.text}]}>Follows you</Text>
+                    <Text style={[globalStyles.p5, {color: "#fff"}]}>Follows you</Text>
                 </View>}
             </View>
             <View>

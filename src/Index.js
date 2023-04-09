@@ -47,10 +47,10 @@ const Index = () => {
         },
     };
     return (
-        <PaperProvider theme={theme === 'dark' ? DarkTheme : LightTheme}>
+        <PaperProvider theme={theme === 'Dark' ? DarkTheme : LightTheme}>
             <StatusBar
-                backgroundColor={theme === 'dark' ? '#20232a' : '#f6fafe'}
-                barStyle={theme === 'dark' ? 'light-content' : 'dark-content'}
+                backgroundColor={theme === 'Dark' ? '#20232a' : '#f6fafe'}
+                barStyle={theme === 'Dark' ? 'light-content' : 'dark-content'}
             />
             <Provider store={store}>
                 <Route />                
