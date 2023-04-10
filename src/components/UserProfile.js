@@ -1,21 +1,15 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import { globalStyles } from './GlobalStyle'
 import { RFValue, wp } from '../lib'
+import { useTheme } from 'react-native-paper'
 import AppButton from './AppButton'
 import IconMap from './IconMap'
-import { useTheme } from 'react-native-paper'
 
-const UserProfile = ({type, username, userid}) => {    
+
+const UserProfile = ({type, username, TabType, Action}) => {      
     
-    const {colors} = useTheme();
-
-    Follow = (type ,user_id) => {
-        console.log(user_id);
-
-        alert(type);
-        //const updatedUsers = users.map(user => user.id === idToUpdate ? {...user, ...updatedParam} : user); 
-    }  
+    const {colors} = useTheme(); 
 
     return (
         <View style={[globalStyles.rowflex, globalStyles.mb20, styles.BlockWrap, {alignItems: "center", borderBottomColor: colors.Input}]}>
@@ -31,9 +25,8 @@ const UserProfile = ({type, username, userid}) => {
             </View>
             <View style={[Platform.OS === 'ios' ? globalStyles.mr5 :  globalStyles.mr10, {width: wp(Platform.OS === 'ios' ? 40 : 45)}]}>
                 <Text style={[globalStyles.mr10, globalStyles.mb10, styles.Name, {color: colors.text}]}>{username} </Text>
-                <Text style={[globalStyles.mr10, globalStyles.mb10, styles.Name, {color: colors.text}]}>@{username}</Text>
-                
-                {type === 'Follower' && <View style={[globalStyles.rowflex, globalStyles.mb10, styles.FollowsBtn, {backgroundColor: colors.placeholder,}]}>
+                                
+                {TabType === 'Follower' && <View style={[globalStyles.rowflex, globalStyles.mb10, styles.FollowsBtn, {backgroundColor: colors.placeholder,}]}>
                     <Text style={[globalStyles.p5, {color: "#fff", fontSize: RFValue(12)}]}>Follows you</Text>
                 </View>}
             </View>
@@ -42,7 +35,7 @@ const UserProfile = ({type, username, userid}) => {
                     title={type === 'Following' ? 'Following':'Follow'}
                     color={ type === 'Following' ? "#fff" : "#000"}
                     loader={false}
-                    onPress={()=> Follow(type, userid) }              
+                    onPress={Action}
                     stylesButton={{backgroundColor: type === 'Following' ? "#000" : '#fff', width: wp(Platform.OS === 'ios' ? 30 : 25), borderRadius: 100}}                         
                     textStyle={{fontSize: RFValue(12)}}
                 />

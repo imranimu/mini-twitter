@@ -1,22 +1,20 @@
-import { StyleSheet, Text, View } from 'react-native'
 import React, {useContext} from 'react'
-import BaseLayout from '../../components/BaseLayout'
-import LiveTweet from '../../components/LiveTweet'
+import { StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native'
 import { ThemeContext } from '../../contexts/ThemeContext'
-import IconMap from '../../components/IconMap'
 import { useTheme } from 'react-native-paper'
 import { useDispatch } from 'react-redux'
 import { globalStyles } from '../../components/GlobalStyle'
-import { RFValue, wp } from '../../lib'
-import {useNavigation} from '@react-navigation/native';
+import { RFValue, wp } from '../../lib' 
+import BaseLayout from '../../components/BaseLayout'
+import IconMap from '../../components/IconMap'
+import LiveTweet from '../../components/LiveTweet'
 import AppButton from '../../components/AppButton'
 
 const SettingTab = () => {
     const {colors} = useTheme();
     const {theme, toggleTheme} = useContext(ThemeContext);
-    const dispatch = useDispatch();
-    const navigation = useNavigation();
+    const dispatch = useDispatch(); 
 
     const Logout = () => {        
         dispatch({

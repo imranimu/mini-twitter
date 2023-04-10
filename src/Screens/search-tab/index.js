@@ -1,13 +1,12 @@
 import { StyleSheet, ScrollView, Platform, ActivityIndicator, TextInput, View, TouchableOpacity } from 'react-native'
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import BaseLayout from '../../components/BaseLayout'
 import LiveTweet from '../../components/LiveTweet'
 import { useTheme } from 'react-native-paper'
 import IconMap from '../../components/IconMap'
 import { globalStyles } from '../../components/GlobalStyle'
-import { RFValue, wp } from '../../lib'
-import Noresult from '../../components/Noresult'
-import SearchProfile from '../../components/SearchProfile'
+import { RFValue } from '../../lib'
+import Noresult from '../../components/Noresult' 
 import { postData } from '../../services/ApiService'
 import { useDispatch } from 'react-redux'
 import UserProfile from '../../components/UserProfile'
@@ -23,48 +22,68 @@ const SearchTab = () => {
         SearchUser(); 
     },[query]);
 
-    const SearchUser = async() =>{
-        
-        if(query.length >= 3){
-            setLoader(true);
-
-            console.log(query);
-
+    const SearchUser = useCallback(async() => {        
+        if(query.length >= 3) {
+            setAllUsers([]);
+            setLoader(loader => true);           
+    
             let data = {
                 token: query
             }; 
-
+    
             const {response } = await postData('/search', data);               
+            setLoader(loader => false);
+    
+            if(response?.search_results) {
 
-            if(response.error){          
-                setLoader(false);
+                const updatedUsers = response.search_results.map(user => ({...user, type: 'Follower'}));
+                
+                console.log(updatedUsers); 
+
+                setAllUsers(updatedUsers); 
+
+            } else if (response?.error) {
                 dispatch({
                     type: 'SIGN_OUT',
                 });
-            }else{            
-
-                console.log(response.search_results); 
-
-                setLoader(false);
-                setAllUsers(response.search_results); 
             }
-        }else{
+        } else {
             setAllUsers([]);
         }  
-    }
+    }, [query]);
+
+    const ClickHandaler = async (type, userid) => {
+        console.log(userid);
+      
+        let data = {
+            user_id: userid 
+        }; 
+      
+        let apiEndpoint = type === 'Following' ? '/unfollow' : '/follow';
+        let updatedType = type === 'Following' ? 'Follower' : 'Following';
+      
+        const { response, status } = await postData(apiEndpoint, data);
+      
+        console.log(response);
+        console.log(status);
+      
+        const updatedUsers = AllUsers.map(user => user.id === userid ? {...user, type: updatedType} : user); 
+      
+        console.log(updatedUsers);
+      
+        setAllUsers(updatedUsers);
+
+    }    
 
     const Users = AllUsers?.length > 0 ? (
         AllUsers.map((item, index) => {
-            return ( 
-                // <SearchProfile                
-                //     key={index} 
-                //     name={item.username} 
-                // />   
+            return (                   
                 <UserProfile 
                     key={index}
-                    type={'Search'}
+                    type={item.type}
                     username={item.username}
                     userid={item.id} 
+                    Action={()=> ClickHandaler(item.type, item.id)}
                 />              
             );
         })

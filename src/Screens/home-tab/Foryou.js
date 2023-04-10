@@ -1,11 +1,9 @@
 import React, {useEffect, useState} from 'react'
-import { ActivityIndicator, Alert, StyleSheet, Text, View, RefreshControl, ScrollView } from 'react-native'
+import { ActivityIndicator, View, RefreshControl, ScrollView } from 'react-native'
 import { useTheme } from 'react-native-paper';
 import { getData } from '../../services/ApiService';
-import { globalStyles } from '../../components/GlobalStyle';
-import { RFValue } from '../../lib';
-import BaseLayout from '../../components/BaseLayout';
-import IconMap from '../../components/IconMap';
+import { globalStyles } from '../../components/GlobalStyle'; 
+import BaseLayout from '../../components/BaseLayout'; 
 import Tweet from '../../components/Tweet';
 import Noresult from '../../components/Noresult';
 import { useDispatch } from 'react-redux';
@@ -52,9 +50,9 @@ const Timeline = () => {
             return ( 
                 <Tweet 
                     key={index}
-                    name={item.user.username}
+                    name={item.user.username}                    
                     username={`@${item.user.username}`}
-                    duration="32h"
+                    duration={item.published}
                     content={item.content}
                 />
             );
@@ -63,7 +61,6 @@ const Timeline = () => {
         <Noresult msg="No Tweet to display" />
     );
     
-
     return (        
         <BaseLayout containerStyle={globalStyles.pt15}>
             {Loader ? 
@@ -79,7 +76,3 @@ const Timeline = () => {
 }
 
 export default Timeline
-
-const styles = StyleSheet.create({
-   
-})

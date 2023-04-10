@@ -15,22 +15,22 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import {RFValue} from '../lib';
 
 const iconMap = {
-  FontAwesome,
-  FontAwesome5,
-  AntDesign,
-  Entypo,
-  Ionicons,
-  Octicons,
-  MaterialCommunityIcons,
-  MaterialIcons,
-  Foundation,
-  Feather,
-  Fontisto,
+    FontAwesome,
+    FontAwesome5,
+    AntDesign,
+    Entypo,
+    Ionicons,
+    Octicons,
+    MaterialCommunityIcons,
+    MaterialIcons,
+    Foundation,
+    Feather,
+    Fontisto,
 };
 
 const IconMap = ({type, name, size, color}) => {
-  const IconComponent = iconMap[type];
-  return <IconComponent name={name} size={RFValue(size)} color={color} />;
+    const IconComponent = iconMap[type];
+    return <IconComponent name={name} size={RFValue(size)} color={color} />;
 };
 
 export default IconMap;

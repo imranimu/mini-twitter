@@ -1,11 +1,11 @@
-import { StyleSheet, RefreshControl, ActivityIndicator, ScrollView, View } from 'react-native'
+import {RefreshControl, ActivityIndicator, ScrollView, View } from 'react-native'
 import React, {useState, useEffect} from 'react'
 import {useDispatch} from 'react-redux';
-import BaseLayout from '../../components/BaseLayout'
 import { globalStyles } from '../../components/GlobalStyle'
 import { useTheme } from 'react-native-paper'
+import { getData, postData } from '../../services/ApiService'
+import BaseLayout from '../../components/BaseLayout'
 import UserProfile from '../../components/UserProfile'
-import { getData } from '../../services/ApiService'
 import Noresult from '../../components/Noresult'
 
 const Followers = () => {
@@ -13,7 +13,7 @@ const Followers = () => {
     const dispatch = useDispatch();
     const {colors} = useTheme();
     const [AllFollowers, setAllFollowers] = useState([]) 
-    const [Loader, setLoader] = useState(false);
+    const [Loader, setLoader] = useState(false); 
 
     const onRefresh = React.useCallback(() => {
         setRefreshing(true); 
@@ -26,25 +26,50 @@ const Followers = () => {
     },[]);
 
     const GetFollowersList = async() =>{
-        
-        setLoader(true);
+        try {
+            setLoader(true);
+            
+            const { response } = await getData('/followers');
+            
+            setLoader(false);
+            
+            const updatedUsers = response.followers.map((user) => ({ ...user, type: 'Follower' }));
 
-        const {response, status } = await getData('/followers');         
+            setAllFollowers(updatedUsers);
 
-        if(response.error || status == false){          
+        } catch (error) {
+            console.error(error);
             setLoader(false);
             dispatch({
                 type: 'SIGN_OUT',
             });
-        }else{            
+        }
+    }    
+
+    const ClickHandaler = async (type, userid) => {    
+        try {
+            let data = {
+                user_id: userid 
+            }; 
+          
+            let apiEndpoint = type === 'Following' ? '/unfollow' : '/follow';
+            let updatedType = type === 'Following' ? 'Follower' : 'Following';
+          
+            const { response } = await postData(apiEndpoint, data);
+          
+            console.log(response);
+          
+            const updatedUsers = AllFollowers.map(user => user.id === userid ? {...user, type: updatedType} : user); 
+          
+            setAllFollowers(updatedUsers);
+
+        } catch (error) {
+            console.error(error);
             setLoader(false);
-
-            const updatedUsers = response.followers.map(user => ({...user, type: 'Follower'}));
-
-            console.log(updatedUsers); 
-
-            setAllFollowers(updatedUsers); 
-        }  
+            dispatch({
+                type: 'SIGN_OUT',
+            });
+        } 
     }
 
     const Followers = AllFollowers?.length > 0 ? (
@@ -54,7 +79,8 @@ const Followers = () => {
                     key={index}
                     type={item.type}
                     username={item.username}
-                    userid={item.id} 
+                    TabType={'Follower'}
+                    Action={()=> ClickHandaler(item.type, item.id)} 
                 />                 
             );
         })
@@ -77,5 +103,4 @@ const Followers = () => {
 }
 
 export default Followers
-
-const styles = StyleSheet.create({})
+ 

@@ -5,20 +5,18 @@ import {
     Text,
     TouchableOpacity,
     View,
-} from 'react-native';
- 
-import {useTheme} from 'react-native-paper';
-import {CheckBox} from 'react-native-elements';
-import {useDispatch} from 'react-redux'; 
+} from 'react-native'; 
+import { useTheme } from 'react-native-paper';
+import { CheckBox } from 'react-native-elements';
+import { useDispatch } from 'react-redux'; 
+import { globalStyles } from '../components/GlobalStyle';
+import { wp, hp } from '../lib';
+import { postData } from '../services/ApiService'; 
 import BaseLayout from '../components/BaseLayout';
 import GlobalInput from '../components/GlobalInput';
-import {globalStyles} from '../components/GlobalStyle';
 import IconMap from '../components/IconMap';
 import AppButton from '../components/AppButton';
 import globalAsyncStorage from '../services/AsyncStorage';
-import { wp, hp } from '../lib';
-import { postData } from '../services/ApiService'; 
-//import Toast from 'react-native-simple-toast';
 
 const Login = ({navigation}) => {    
     const dispatch = useDispatch();

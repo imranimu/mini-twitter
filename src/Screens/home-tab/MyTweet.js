@@ -44,7 +44,7 @@ const MyTweet = () => {
                     key={index}
                     name={item.user.username}
                     username={`@${item.user.username}`}
-                    duration="32h"
+                    duration={item.published}
                     content={item.content}
                 />
             );

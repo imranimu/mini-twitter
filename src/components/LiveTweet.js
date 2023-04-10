@@ -6,35 +6,44 @@ import { RFValue, wp } from '../lib';
 import { globalStyles } from './GlobalStyle';
 import IconMap from './IconMap';
 import AppButton from './AppButton';
+import { useDispatch } from 'react-redux';
 
 const LiveTweet = () => {
+    const dispatch = useDispatch();
     const {colors} = useTheme();
     const [modalVisible, setModalVisible] = useState(false);
     const [TweetContent, setTweetContent] = useState('');
-    const [Loader, setLoader] = useState(false);
+    const [Loader, setLoader] = useState(false);     
 
-    SubmitTweet = async() => {       
+    SubmitTweet = async() => {      
 
         setLoader(true);
-
+    
         let data = {
             content: TweetContent 
         }; 
+    
+        try {
+            const {response} = await postData('/tweet', data)
 
-        const {response, status, msg} = await postData('/tweet', data)
-
-        if(status){
             console.log(response);
+
             setLoader(false);            
+
             setTweetContent('');
+
             setModalVisible(false); 
+
             alert(response.message);
-        }else{
-            setLoader(false);
-            alert(msg);
-        }
-         
+           
+        } catch (error) {
+            setLoader(false);            
+            dispatch({
+                type: 'SIGN_OUT',
+            });
+        }        
     }
+    
 
     return (
         <>

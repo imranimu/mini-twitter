@@ -5,20 +5,17 @@ import {
     Text,
     TouchableOpacity,
     View,
-} from 'react-native';
- 
-import {useTheme} from 'react-native-paper'; 
-import {useDispatch} from 'react-redux'; 
-import BaseLayout from '../components/BaseLayout';
-import GlobalInput from '../components/GlobalInput';
-import {globalStyles} from '../components/GlobalStyle';
-import IconMap from '../components/IconMap';
-import AppButton from '../components/AppButton'; 
+} from 'react-native'; 
+import { useTheme } from 'react-native-paper';  
 import { wp } from '../lib';
 import { postData } from '../services/ApiService';  
+import {globalStyles} from '../components/GlobalStyle';
+import BaseLayout from '../components/BaseLayout';
+import GlobalInput from '../components/GlobalInput';
+import IconMap from '../components/IconMap';
+import AppButton from '../components/AppButton'; 
 
 const Signup = ({navigation}) => {    
-    const dispatch = useDispatch();
 
     const {colors} = useTheme();
 
@@ -116,8 +113,7 @@ const Signup = ({navigation}) => {
                         />
                         )}
                     </TouchableOpacity>
-                </View>
- 
+                </View> 
                         
                 <AppButton                     
                     disabled={!email && !password }

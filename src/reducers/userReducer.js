@@ -1,4 +1,3 @@
-//import AsyncStorage from '@react-native-async-storage/async-storage';
 import globalAsyncStorage from '../services/AsyncStorage';
 
 const initialState = {
@@ -14,8 +13,7 @@ const userReducer = (state = initialState, action) => {
         break; 
 
         case 'SIGN_IN':
-            try {
-                //const jsonValue = JSON.stringify(action.payload);
+            try {                
                 globalAsyncStorage.setItem('Token', action.payload);
                 state = {
                     isUserLoggedIn: true,

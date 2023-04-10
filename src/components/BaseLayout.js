@@ -28,12 +28,12 @@ const BaseLayout = ({children, containerStyle, paddingTop}) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: wp(5),
-  },
+    container: {
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: wp(5),
+    },
 });
 
 export default BaseLayout;
