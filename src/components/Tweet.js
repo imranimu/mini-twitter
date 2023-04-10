@@ -42,14 +42,14 @@ const styles = StyleSheet.create({
         paddingBottom: 20,        
     },
     Name:{
-        fontSize: RFValue(18), 
+        fontSize: RFValue(16), 
         fontWeight: "bold"        
     },
     Username:{
-        fontSize: RFValue(16), 
+        fontSize: RFValue(14), 
     },
     ContentStyle:{
         lineHeight: 24,
-        fontSize: Platform.OS === 'ios' ? RFValue(14) : RFValue(15) , 
+        fontSize: Platform.OS === 'ios' ? RFValue(13) : RFValue(14) , 
     }
 })

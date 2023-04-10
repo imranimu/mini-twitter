@@ -38,7 +38,12 @@ const Followers = () => {
             });
         }else{            
             setLoader(false);
-            setAllFollowers(response.followers); 
+
+            const updatedUsers = response.followers.map(user => ({...user, type: 'Follower'}));
+
+            console.log(updatedUsers); 
+
+            setAllFollowers(updatedUsers); 
         }  
     }
 
@@ -47,7 +52,7 @@ const Followers = () => {
             return ( 
                 <UserProfile 
                     key={index}
-                    type={'Followers'}
+                    type={item.type}
                     username={item.username}
                     userid={item.id} 
                 />                 

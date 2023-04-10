@@ -91,6 +91,8 @@ const Signup = ({navigation}) => {
                     placeholder="email"
                     onChangeText={email => setEmail(email)}
                     value={email}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
                 />
                 <View style={styles.FieldWrap}>
                     <GlobalInput

@@ -31,7 +31,7 @@ const SettingTab = () => {
                 <IconMap
                     type="FontAwesome"
                     name="user-o"
-                    size={150}
+                    size={100}
                     color={colors.iconColor}
                 /> 
 
@@ -40,7 +40,8 @@ const SettingTab = () => {
                     color={"#fff"}
                     loader={false}
                     onPress={()=> Logout()}        
-                    stylesButton={{backgroundColor: "#DD5245", width: wp(Platform.OS === 'ios' ? 50 : 50), marginTop: 30,  borderRadius: 100}}
+                    stylesButton={{backgroundColor: "#DD5245", fontSize: RFValue(20), width: wp(Platform.OS === 'ios' ? 50 : 50), marginTop: 30,  borderRadius: 100}}
+                    textStyle={{fontSize: RFValue(14), textTransform: "uppercase"}}
                 />
             </View>
 
@@ -58,7 +59,7 @@ const SettingTab = () => {
                         size={30}
                         color={colors.iconColor}
                     />
-                    <Text style={ [ globalStyles.ml10, {color: colors.text, fontSize: RFValue(20)}]}>{theme}</Text>
+                    <Text style={ [ globalStyles.ml10, {color: colors.text, textTransform: "uppercase", fontSize: RFValue(14)}]}>{theme}</Text>
                 </View>         
             </TouchableOpacity>
         </BaseLayout>

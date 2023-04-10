@@ -38,8 +38,9 @@ const Following = () => {
                 type: 'SIGN_OUT',
             });
         }else{
-            setLoader(false);            
-            setAllFollowing(response.followings); 
+            setLoader(false);
+            const updatedUsers = response.followings.map(user => ({...user, type: 'Following'}));
+            setAllFollowing(updatedUsers); 
         }   
     }
 
@@ -48,7 +49,7 @@ const Following = () => {
             return ( 
                 <UserProfile 
                     key={index}
-                    type={'Following'}
+                    type={item.type}
                     username={item.username}
                     userid={item.id} 
                 />                 

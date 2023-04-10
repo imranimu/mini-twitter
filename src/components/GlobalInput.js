@@ -21,7 +21,7 @@ const GlobalInput = ({Label, Style, Icon, ...props }) => {
                     styles.input, 
                     {backgroundColor: colors.Input, color: colors.text},
                     Style
-                ]}                
+                ]}            
             />
         </View>
     );

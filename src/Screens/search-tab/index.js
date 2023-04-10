@@ -10,6 +10,7 @@ import Noresult from '../../components/Noresult'
 import SearchProfile from '../../components/SearchProfile'
 import { postData } from '../../services/ApiService'
 import { useDispatch } from 'react-redux'
+import UserProfile from '../../components/UserProfile'
 
 const SearchTab = () => {
     const {colors} = useTheme();
@@ -41,6 +42,9 @@ const SearchTab = () => {
                     type: 'SIGN_OUT',
                 });
             }else{            
+
+                console.log(response.search_results); 
+
                 setLoader(false);
                 setAllUsers(response.search_results); 
             }
@@ -52,10 +56,16 @@ const SearchTab = () => {
     const Users = AllUsers?.length > 0 ? (
         AllUsers.map((item, index) => {
             return ( 
-                <SearchProfile                
-                    key={index} 
-                    name={item.username} 
-                />                 
+                // <SearchProfile                
+                //     key={index} 
+                //     name={item.username} 
+                // />   
+                <UserProfile 
+                    key={index}
+                    type={'Search'}
+                    username={item.username}
+                    userid={item.id} 
+                />              
             );
         })
     ) : (

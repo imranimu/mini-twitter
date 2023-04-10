@@ -13,7 +13,7 @@ const Noresult = ({msg}) => {
         <View style={[globalStyles.rowflex, {alignItems: "center", justifyContent: "center"}]}>             
             <IconMap type="AntDesign" name="twitter" size={20} color={colors.iconColor} />            
             
-            <Text style={[globalStyles.ml10, {color: colors.text, fontSize: RFValue(18)}]}>{msg}</Text>
+            <Text style={[globalStyles.ml10, {color: colors.text, fontSize: RFValue(14)}]}>{msg}</Text>
         </View> 
     )
 }

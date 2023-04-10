@@ -111,10 +111,12 @@ const Login = ({navigation}) => {
             </View>
             <ScrollView>                
                 <GlobalInput
-                Label="Email"
-                placeholder="Enter your email"
-                onChangeText={email => setEmail(email)}
-                value={email}
+                    Label="Email"
+                    placeholder="Enter your email"
+                    onChangeText={email => setEmail(email)}
+                    value={email}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
                 />
                 <View style={styles.FieldWrap}>
                     <GlobalInput
