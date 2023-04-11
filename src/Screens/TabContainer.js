@@ -36,19 +36,20 @@ const TabContainer = ({navigation, route}) => {
                     }
                     return <IconMap type={'AntDesign'} name={iconName} size={Platform.OS === 'ios' ? 23 : 25} color={color} />
                 },
-                tabBarStyle: {
+                tabBarHideOnKeyboard : true,
+                tabBarShowLabel: false,
+                tabBarLabelStyle: {
+                    fontSize : wp('3.6%'),
+                },
+                tabBarStyle: [{
                     height: Platform.OS === 'ios' ? 80 : 70,
                     paddingHorizontal: 5,
                     paddingTop: 5,
                     paddingBottom: Platform.OS === 'ios' ? 20 : 12,
                     backgroundColor: colors.sbgcolor,
                     borderTopWidth: 0,
-                },
-            })}
-            tabBarOptions={{
-                keyboardHidesTabBar: true,          
-                showLabel: false,  
-            }}
+                }, null],
+            })}            
         >
             <Tab.Screen name="Home" component={HomeTab} />
             <Tab.Screen name="Search" component={SearchTab} />
