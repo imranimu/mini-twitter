@@ -10,6 +10,7 @@ import HomeTab from './home-tab';
 import ProfileTab from './Profile-tab';
 import SearchTab from './search-tab';
 import SettingTab from './setting-tab';
+import { wp } from '../lib';
 
 const Tab = createBottomTabNavigator();
 

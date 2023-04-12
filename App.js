@@ -10,7 +10,7 @@ const App = () => {
     }, []) 
 
     return (
-        <ThemeProvider>
+        <ThemeProvider>            
             <Index />
         </ThemeProvider>        
     )
